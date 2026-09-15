@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swaba Handicraft - Luxury Home Decor & Artifacts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs for Real-time Orders -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #faf9f6;
+            color: #1a1a1a;
+        }
+        .serif-font {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #aa771c 50%, #d4af37 100%);
+        }
+        .gold-text {
+            background: linear-gradient(135deg, #b8860b 0%, #8b6508 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-neutral-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Top Announcement Bar -->
+    <div class="gold-gradient text-white text-xs md:text-sm font-medium py-2 px-4 text-center sticky top-0 z-50 flex items-center justify-center gap-2 shadow-md">
+        <i class="fa-solid fa-bolt"></i>
+        <span>Hurry Up, Shop Now! Extra 50% Off Limited Period Offer</span>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-amber-100 sticky top-[37px] z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full border border-amber-500 flex items-center justify-center bg-amber-50">
+                    <span class="serif-font font-bold text-amber-700 text-lg">S</span>
+                </div>
+                <div>
+                    <h1 class="serif-font font-bold tracking-wider text-base md:text-lg text-neutral-900">SWABA</h1>
+                    <p class="text-[9px] tracking-widest text-amber-700 font-semibold uppercase">Handicraft Luxury</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <a href="tel:8955550232" class="hidden md:flex items-center gap-2 text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full hover:bg-amber-100 transition">
+                    <i class="fa-solid fa-headset text-amber-600"></i> Support: +91 8955550232
+                </a>
+                <button onclick="toggleCart()" class="relative p-2 text-neutral-800 hover:text-amber-700 transition">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-amber-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-12 px-4 bg-gradient-to-b from-amber-50/50 to-transparent">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="inline-block bg-amber-100 text-amber-800 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3">Royal Masterpieces Collection</span>
+            <h2 class="serif-font text-3xl md:text-5xl font-bold text-neutral-900 mb-4 leading-tight">Elevate Your Space With <span class="gold-text">Exquisite Royal Artifacts</span></h2>
+            <p class="text-neutral-600 text-sm md:text-base max-w-2xl mx-auto mb-8">Handcrafted luxury statement pieces designed to bring unmatched elegance, warmth, and sophistication to your interior decor.</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 text-xs font-medium text-neutral-700 mb-6">
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-neutral-100">
+                    <i class="fa-solid fa-shield-halved text-amber-600 text-base"></i> 100% Handcrafted Quality
+                </div>
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-neutral-100">
+                    <i class="fa-solid fa-truck-fast text-amber-600 text-base"></i> Secure Express Shipping
+                </div>
+                <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-neutral-100">
+                    <i class="fa-solid fa-headset text-amber-600 text-base"></i> Helpline: 8955550232
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <main class="max-w-6xl mx-auto px-4 pb-20">
+        <div class="text-center mb-10">
+            <h3 class="serif-font text-2xl md:text-3xl font-bold text-neutral-900">Featured Masterpieces</h3>
+            <div class="w-16 h-0.5 bg-amber-600 mx-auto mt-2"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Product 1: Golden Deer Head Wall Lamp -->
+            <div class="bg-white rounded-2xl shadow-md border border-amber-100 overflow-hidden flex flex-col hover:shadow-xl transition duration-300">
+                <div class="relative bg-neutral-100 h-72 flex items-center justify-center overflow-hidden group">
+                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md z-10">52% OFF</span>
+                    <img src="13728_2.jpg" onerror="this.src='https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80'" alt="Golden Deer Head Wall Lamp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-[10px] tracking-wider uppercase font-bold text-amber-700 mb-1">Swaba Handicraft Exclusive</span>
+                    <h4 class="serif-font font-bold text-lg text-neutral-900 mb-2">Golden Deer Head Wall Lamp</h4>
+                    <p class="text-neutral-500 text-xs mb-4 flex-grow">Exquisite wall-mounted stag with golden antlers and glowing crystal globe pendant light.</p>
+                    
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-2xl font-bold text-neutral-900">₹3,999</span>
+                        <span class="text-sm text-neutral-400 line-through">₹8,399</span>
+                        <span class="text-xs font-semibold text-green-600 ml-auto">Save 52%</span>
+                    </div>
+
+                    <button onclick="addToBag('Golden Deer Head Wall Lamp', 3999)" class="w-full gold-gradient text-white font-bold py-3 px-4 rounded-xl shadow hover:opacity-95 transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> BUY NOW (Secure UPI)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 2: Fire Breathing Dragon Table Lamp -->
+            <div class="bg-white rounded-2xl shadow-md border border-amber-100 overflow-hidden flex flex-col hover:shadow-xl transition duration-300">
+                <div class="relative bg-neutral-100 h-72 flex items-center justify-center overflow-hidden group">
+                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md z-10">50% OFF</span>
+                    <img src="13723_2.png" onerror="this.src='https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=600&q=80'" alt="Fire Breathing Dragon Table Lamp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-[10px] tracking-wider uppercase font-bold text-amber-700 mb-1">Swaba Handicraft Exclusive</span>
+                    <h4 class="serif-font font-bold text-lg text-neutral-900 mb-2">Fire Breathing Dragon Table Lamp</h4>
+                    <p class="text-neutral-500 text-xs mb-4 flex-grow">Mythical fantasy LED night light sculpture with glowing flame effect for modern living rooms.</p>
+                    
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-2xl font-bold text-neutral-900">₹4,499</span>
+                        <span class="text-sm text-neutral-400 line-through">₹8,999</span>
+                        <span class="text-xs font-semibold text-green-600 ml-auto">Save 50%</span>
+                    </div>
+
+                    <button onclick="addToBag('Fire Breathing Dragon Table Lamp', 4499)" class="w-full gold-gradient text-white font-bold py-3 px-4 rounded-xl shadow hover:opacity-95 transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> BUY NOW (Secure UPI)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product 3: Elegant Royal Peacock Figurine -->
+            <div class="bg-white rounded-2xl shadow-md border border-amber-100 overflow-hidden flex flex-col hover:shadow-xl transition duration-300">
+                <div class="relative bg-neutral-100 h-72 flex items-center justify-center overflow-hidden group">
+                    <span class="absolute top-3 left-3 bg-red-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-md z-10">48% OFF</span>
+                    <img src="13724_2.png" onerror="this.src='https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80'" alt="Elegant Royal Peacock Figurine" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-[10px] tracking-wider uppercase font-bold text-amber-700 mb-1">Swaba Handicraft Exclusive</span>
+                    <h4 class="serif-font font-bold text-lg text-neutral-900 mb-2">Elegant Royal Peacock Figurine</h4>
+                    <p class="text-neutral-500 text-xs mb-4 flex-grow">Hand-painted metallic black & emerald green peacock sculpture perched gracefully on a golden branch.</p>
+                    
+                    <div class="flex items-baseline gap-2 mb-4">
+                        <span class="text-2xl font-bold text-neutral-900">₹3,499</span>
+                        <span class="text-sm text-neutral-400 line-through">₹6,799</span>
+                        <span class="text-xs font-semibold text-green-600 ml-auto">Save 48%</span>
+                    </div>
+
+                    <button onclick="addToBag('Elegant Royal Peacock Figurine', 3499)" class="w-full gold-gradient text-white font-bold py-3 px-4 rounded-xl shadow hover:opacity-95 transition text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> BUY NOW (Secure UPI)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Support Banner & Footer -->
+    <footer class="bg-neutral-900 text-neutral-300 py-12 px-4 border-t border-neutral-800">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="serif-font text-2xl font-bold text-white mb-3">Swaba Handicraft Customer Support</h2>
+            <p class="text-sm text-neutral-400 mb-6">Need assistance with your order or payment confirmation? Contact our support executive directly.</p>
+            <a href="tel:8955550232" class="inline-flex items-center gap-3 bg-amber-600 hover:bg-amber-700 text-white font-bold px-6 py-3 rounded-xl transition text-base shadow-lg">
+                <i class="fa-solid fa-phone-volume text-xl"></i> Call / WhatsApp: +91 8955550232
+            </a>
+            <p class="text-xs text-neutral-500 mt-8">&copy; 2026 Swaba Handicraft. All Rights Reserved. Secure UPI Transactions.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Bag / Checkout Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex justify-end backdrop-blur-xs">
+        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl overflow-y-auto">
+            
+            <!-- Cart Header -->
+            <div class="p-4 border-b border-neutral-200 flex items-center justify-between bg-neutral-50 sticky top-0 z-10">
+                <h3 class="serif-font font-bold text-lg text-neutral-900">Your Shopping Bag</h3>
+                <button onclick="toggleCart()" class="text-neutral-500 hover:text-neutral-900 p-2 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart Body -->
+            <div id="cart-content" class="p-5 flex-grow">
+                <!-- Dynamically populated -->
+            </div>
+
+            <!-- Checkout Form Section -->
+            <div id="checkout-section" class="p-5 border-t border-neutral-200 bg-neutral-50 hidden">
+                <h4 class="font-bold text-sm text-neutral-900 mb-3"><i class="fa-solid fa-address-card text-amber-600 mr-1"></i> Shipping Details</h4>
+                <div class="space-y-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Full Name*</label>
+                        <input type="text" id="cust-name" placeholder="Enter Full Name" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Mobile Number*</label>
+                        <input type="tel" id="cust-phone" placeholder="Enter Mobile Number" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">House No. / Building Name*</label>
+                        <input type="text" id="cust-house" placeholder="House No. / Building Name" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-neutral-700 mb-1">Road Name / Area Colony*</label>
+                        <input type="text" id="cust-address" placeholder="Road Name / Area Colony" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-neutral-700 mb-1">City*</label>
+                            <input type="text" id="cust-city" placeholder="City" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-neutral-700 mb-1">Pincode*</label>
+                            <input type="text" id="cust-pincode" placeholder="Pincode" class="w-full text-xs p-2.5 rounded-lg border border-neutral-300 focus:outline-none focus:border-amber-600 bg-white">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPI QR Payment & Gateway Section -->
+                <div class="mt-6 pt-4 border-t border-neutral-200 text-center">
+                    <h4 class="font-bold text-sm text-neutral-900 mb-1"><i class="fa-solid fa-qrcode text-amber-600 mr-1"></i> Scan QR or Pay via Apps</h4>
+                    <p class="text-[11px] text-neutral-500 mb-3">UPI ID: <span class="font-semibold text-neutral-800">foundationararwalglobal@okicici</span></p>
+                    
+                    <!-- QR Code with fallback -->
+                    <div class="bg-white p-3 rounded-xl border border-amber-200 inline-block shadow-sm mb-4">
+                        <img src="13378.png" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=upi://pay?pa=foundationararwalglobal@okicici&pn=Swaba%20Handicraft'" alt="QR Code" class="w-40 h-40 object-contain mx-auto rounded-lg">
+                    </div>
+
+                    <!-- Direct Payment Gateway App Buttons -->
+                    <p class="text-xs font-bold text-neutral-700 mb-2">Or Click Below to Pay Directly via App:</p>
+                    <div class="grid grid-cols-2 gap-2.5 mb-3">
+                        <a id="btn-phonepe" href="#" onclick="handleDirectPayment(event)" class="flex items-center justify-center gap-2 p-3 rounded-xl border border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-900 font-bold text-xs transition shadow-xs">
+                            <i class="fa-solid fa-p bg-purple-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px]"></i> PhonePe
+                        </a>
+                        <a id="btn-gpay" href="#" onclick="handleDirectPayment(event)" class="flex items-center justify-center gap-2 p-3 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-900 font-bold text-xs transition shadow-xs">
+                            <i class="fa-brands fa-google bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px]"></i> Google Pay
+                        </a>
+                        <a id="btn-paytm" href="#" onclick="handleDirectPayment(event)" class="flex items-center justify-center gap-2 p-3 rounded-xl border border-sky-200 bg-sky-50 hover:bg-sky-100 text-sky-900 font-bold text-xs transition shadow-xs">
+                            <i class="fa-solid fa-indian-rupee-sign bg-sky-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px]"></i> Paytm UPI
+                        </a>
+                        <a id="btn-otherupi" href="#" onclick="handleDirectPayment(event)" class="flex items-center justify-center gap-2 p-3 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs transition shadow-xs">
+                            <i class="fa-solid fa-wallet bg-amber-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-[10px]"></i> Other UPI App
+                        </a>
+                    </div>
+
+                    <p class="text-[10px] text-neutral-500 mt-3">If you face any issue, call customer care: <a href="tel:8955550232" class="text-amber-700 font-bold underline">+91 8955550232</a></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+            projectId: "YOUR_FIREBASE_PROJECT_ID",
+            storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+            appId: "YOUR_FIREBASE_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let cart = [];
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        function addToBag(name, price) {
+            cart = [{ name: name, price: price, qty: 1 }];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-content');
+            const checkoutSec = document.getElementById('checkout-section');
+            const cartCount = document.getElementById('cart-count');
+
+            cartCount.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-neutral-400"><i class="fa-solid fa-bag-shopping text-4xl mb-2"></i><p class="text-xs">Your bag is empty</p></div>`;
+                checkoutSec.classList.add('hidden');
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.qty;
+                html += `
+                    <div class="flex items-center justify-between bg-neutral-50 p-3 rounded-xl border border-neutral-200 mb-3">
+                        <div>
+                            <h5 class="font-bold text-xs text-neutral-900">${item.name}</h5>
+                            <p class="text-xs text-amber-700 font-semibold mt-1">₹${item.price.toLocaleString()}</p>
+                        </div>
+                        <span class="text-xs bg-neutral-200 px-2.5 py-1 rounded-md font-bold">Qty: 1</span>
+                    </div>
+                    <div class="flex justify-between items-center font-bold text-sm bg-amber-50 p-3 rounded-xl border border-amber-200">
+                        <span>Total Amount:</span>
+                        <span id="cart-total-amount" class="text-amber-900 text-base" data-value="${total}">₹${total.toLocaleString()}</span>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            checkoutSec.classList.remove('hidden');
+
+            // Generate UPI payment deep link
+            const upiId = "foundationararwalglobal@okicici";
+            const payeeName = "Swaba Handicraft";
+            const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${total}&cu=INR&tn=Order_${encodeURIComponent(cart[0].name)}`;
+
+            // Assign UPI link to all direct payment buttons
+            document.getElementById('btn-phonepe').href = upiLink;
+            document.getElementById('btn-gpay').href = upiLink;
+            document.getElementById('btn-paytm').href = upiLink;
+            document.getElementById('btn-otherupi').href = upiLink;
+        }
+
+        function handleDirectPayment(event) {
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const house = document.getElementById('cust-house').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+            const city = document.getElementById('cust-city').value.trim();
+            const pincode = document.getElementById('cust-pincode').value.trim();
+
+            if (!name || !phone || !house || !address || !city || !pincode) {
+                event.preventDefault();
+                alert('Please fill in all required shipping details (Name, Phone, Address, City, Pincode) before proceeding to payment.');
+                return;
+            }
+
+            const productPrice = cart[0].price;
+            const productName = cart[0].name;
+
+            // Save order to Firebase Firestore instantly in background before redirecting to payment app
+            db.collection("orders").add({
+                name: name,
+                phone: phone,
+                house: house,
+                address: address,
+                city: city,
+                pincode: pincode,
+                utr: "App_Payment_Initiated",
+                product: productName,
+                price: productPrice,
+                status: "Pending",
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(err => console.log("Firebase save error: ", err));
+        }
+    </script>
+</body>
+</html>
