@@ -5,41 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f9; }
-        .container { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .container { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
         input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #28a745; color: white; padding: 10px; border: none; width: 100%; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button { background: #28a745; color: white; padding: 10px; border: none; width: 100%; border-radius: 4px; cursor: pointer; }
         button:hover { background: #218838; }
         hr { margin: 20px 0; border: 0; border-top: 1px solid #ddd; }
     </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         const firebaseConfig = {
-          apiKey: "AIzaSyD6ceccqYCvOsugTxtrzQei",
-          authDomain: "admin-8e91e.firebaseapp.com",
-          projectId: "admin-8e91e",
-          storageBucket: "admin-8e91e.appspot.com",
-          messagingSenderId: "83048390837",
-          appId: "1:83048390837:web:09Ef8df37ff919261efc"
+            apiKey: "AIzaSyD6eccqVCv0sugTxtrzQeI",
+            authDomain: "admin-5e91e.firebaseapp.com",
+            projectId: "admin-5e91e",
+            storageBucket: "admin-5e91e.appspot.com",
+            messagingSenderId: "8304839037",
+            appId: "1:8304839037:web:95EF8df37ff9f9261efc"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         window.saveData = async function() {
-            const upiId = document.getElementById('upiId').value;
+            const upId = document.getElementById("upId").value;
+            const supportPhone = document.getElementById("supportPhone").value;
             const qrLink = document.getElementById("qrlink").value;
-
-            const qrLink = document.getElementById('qrLink').value;
-            const productName = document.getElementById('productName').value;
-            const productImage = document.getElementById('productImage').value;
+            const productName = document.getElementById("productName").value;
+            const productImage = document.getElementById("productImage").value;
 
             try {
                 await setDoc(doc(db, "settings", "adminData"), {
-                    upiId: upiId,
+                    upId: upId,
                     supportPhone: supportPhone,
                     qrLink: qrLink,
                     productName: productName,
@@ -57,13 +55,13 @@
         <h2>Admin Settings</h2>
         
         <label>UPI ID:</label>
-        <input type="text" id="upiId" placeholder="Enter UPI ID">
-        
+        <input type="text" id="upId" placeholder="Enter UPI ID">
+
         <label>Support Phone:</label>
         <input type="text" id="supportPhone" placeholder="Enter Phone Number">
-        
+
         <label>QR Link:</label>
-        <input type="text" id="qrLink" placeholder="Enter QR Image Link">
+        <input type="text" id="qrlink" placeholder="Enter QR Image Link">
 
         <hr>
         <h3>Product Details</h3>
@@ -72,10 +70,9 @@
         <input type="text" id="productName" placeholder="Enter Product Name">
 
         <label>Product Image Link:</label>
-        <input type="text" id="productImage" placeholder="Enter Product Image URL">
-        
-        <button onclick="saveData()">Save Settings</button>
+        <input type="text" id="productImage" placeholder="Enter Image Link">
 
+        <button onclick="saveData()">Save Data</button>
     </div>
 </body>
 </html>
