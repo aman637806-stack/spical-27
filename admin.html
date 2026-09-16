@@ -14,45 +14,6 @@
         hr { margin: 20px 0; border: 0; border-top: 1px solid #ddd; }
         h2, h3 { text-align: center; color: #333; }
     </style>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyD6eccqVCv0sugTxtrzQeI",
-            authDomain: "admin-5e91e.firebaseapp.com",
-            projectId: "admin-5e91e",
-            storageBucket: "admin-5e91e.appspot.com",
-            messagingSenderId: "8304839037",
-            appId: "1:8304839037:web:95EF8df37ff9f9261efc"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.saveData = async function() {
-            const upiId = document.getElementById("upiId").value;
-            const supportPhone = document.getElementById("supportPhone").value;
-            const qrlink = document.getElementById("qrlink").value;
-            const productName = document.getElementById("productName").value;
-            const productPrice = document.getElementById("productPrice").value;
-            const productImage = document.getElementById("productImage").value;
-
-            try {
-                await setDoc(doc(db, "settings", "adminData"), {
-                    upiId: upiId,
-                    supportPhone: supportPhone,
-                    qrlink: qrlink,
-                    productName: productName,
-                    productPrice: productPrice,
-                    productImage: productImage
-                }, { merge: true });
-                alert("Settings aur Product Successfully Update Ho Gaye!");
-            } catch (e) {
-                alert("Error: " + e.message);
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -79,7 +40,47 @@
         <label>Product Image Link:</label>
         <input type="text" id="productImage" placeholder="Paste Product Image URL">
 
-        <button onclick="saveData()">Save All Changes</button>
+        <button id="saveBtn">Save All Changes</button>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6eccqVCv0sugTxtrzQeI",
+            authDomain: "admin-5e91e.firebaseapp.com",
+            projectId: "admin-5e91e",
+            storageBucket: "admin-5e91e.appspot.com",
+            messagingSenderId: "8304839037",
+            appId: "1:8304839037:web:95EF8df37ff9f9261efc"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("saveBtn").addEventListener("click", async function() {
+            const upiId = document.getElementById("upiId").value;
+            const supportPhone = document.getElementById("supportPhone").value;
+            const qrlink = document.getElementById("qrlink").value;
+            const productName = document.getElementById("productName").value;
+            const productPrice = document.getElementById("productPrice").value;
+            const productImage = document.getElementById("productImage").value;
+
+            try {
+                await setDoc(doc(db, "settings", "adminData"), {
+                    upiId: upiId,
+                    supportPhone: supportPhone,
+                    qrlink: qrlink,
+                    productName: productName,
+                    productPrice: productPrice,
+                    productImage: productImage
+                }, { merge: true });
+                alert("Settings aur Product Successfully Update Ho Gaye!");
+            } catch (e) {
+                alert("Error: " + e.message);
+            }
+        });
+    </script>
 </body>
 </html>
