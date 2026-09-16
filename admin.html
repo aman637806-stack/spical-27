@@ -10,12 +10,12 @@
         input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         button { background: #28a745; color: white; padding: 10px; border: none; width: 100%; border-radius: 4px; cursor: pointer; font-size: 16px; }
         button:hover { background: #218838; }
+        hr { margin: 20px 0; border: 0; border-top: 1px solid #ddd; }
     </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // Aapki asli Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyD6ceccqYCvOsugTxtrzQei",
           authDomain: "admin-8e91e.firebaseapp.com",
@@ -32,14 +32,18 @@
             const upiId = document.getElementById('upiId').value;
             const supportPhone = document.getElementById('supportPhone').value;
             const qrLink = document.getElementById('qrLink').value;
+            const productName = document.getElementById('productName').value;
+            const productImage = document.getElementById('productImage').value;
 
             try {
                 await setDoc(doc(db, "settings", "adminData"), {
                     upiId: upiId,
                     supportPhone: supportPhone,
-                    qrLink: qrLink
+                    qrLink: qrLink,
+                    productName: productName,
+                    productImage: productImage
                 }, { merge: true });
-                alert("Data Successfully Save Ho Gaya!");
+                alert("Product aur Settings Successfully Save Ho Gayi!");
             } catch (e) {
                 alert("Error: " + e.message);
             }
@@ -49,6 +53,7 @@
 <body>
     <div class="container">
         <h2>Admin Settings</h2>
+        
         <label>UPI ID:</label>
         <input type="text" id="upiId" placeholder="Enter UPI ID">
         
@@ -57,6 +62,15 @@
         
         <label>QR Link:</label>
         <input type="text" id="qrLink" placeholder="Enter QR Image Link">
+
+        <hr>
+        <h3>Product Details</h3>
+
+        <label>Product Name:</label>
+        <input type="text" id="productName" placeholder="Enter Product Name">
+
+        <label>Product Image Link:</label>
+        <input type="text" id="productImage" placeholder="Enter Product Image URL">
         
         <button onclick="saveData()">Save Changes</button>
     </div>
