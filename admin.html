@@ -31,7 +31,7 @@
         const db = getFirestore(app);
 
         window.saveData = async function() {
-            const upId = document.getElementById("upId").value;
+            const upiId = document.getElementById("upiId").value;
             const supportPhone = document.getElementById("supportPhone").value;
             const qrlink = document.getElementById("qrlink").value;
             const productName = document.getElementById("productName").value;
@@ -40,7 +40,7 @@
 
             try {
                 await setDoc(doc(db, "settings", "adminData"), {
-                    upId: upId,
+                    upiId: upiId,
                     supportPhone: supportPhone,
                     qrlink: qrlink,
                     productName: productName,
@@ -59,7 +59,7 @@
         <h2>Admin Dashboard</h2>
         
         <label>UPI ID:</label>
-        <input type="text" id="upId" placeholder="Enter UPI ID (e.g. mobile@paytm)">
+        <input type="text" id="upiId" placeholder="Enter UPI ID (e.g. mobile@paytm)">
 
         <label>Support Phone Number:</label>
         <input type="text" id="supportPhone" placeholder="Enter Phone Number">
