@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
+    <title>Admin Panel - Gift Product</title>
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
-        .container { max-width: 400px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
-        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background: #28a745; color: white; padding: 10px; border: none; width: 100%; border-radius: 4px; cursor: pointer; }
+        .container { max-width: 450px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin: auto; }
+        input { width: 100%; padding: 10px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        label { font-weight: bold; color: #333; }
+        button { background: #28a745; color: white; padding: 12px; border: none; width: 100%; border-radius: 4px; cursor: pointer; font-size: 16px; }
         button:hover { background: #218838; }
         hr { margin: 20px 0; border: 0; border-top: 1px solid #ddd; }
+        h2, h3 { text-align: center; color: #333; }
     </style>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
@@ -31,19 +33,21 @@
         window.saveData = async function() {
             const upId = document.getElementById("upId").value;
             const supportPhone = document.getElementById("supportPhone").value;
-            const qrLink = document.getElementById("qrlink").value;
+            const qrlink = document.getElementById("qrlink").value;
             const productName = document.getElementById("productName").value;
+            const productPrice = document.getElementById("productPrice").value;
             const productImage = document.getElementById("productImage").value;
 
             try {
                 await setDoc(doc(db, "settings", "adminData"), {
                     upId: upId,
                     supportPhone: supportPhone,
-                    qrLink: qrLink,
+                    qrlink: qrlink,
                     productName: productName,
+                    productPrice: productPrice,
                     productImage: productImage
                 }, { merge: true });
-                alert("Product aur Settings Successfully Save Ho Gayi!");
+                alert("Settings aur Product Successfully Update Ho Gaye!");
             } catch (e) {
                 alert("Error: " + e.message);
             }
@@ -52,16 +56,16 @@
 </head>
 <body>
     <div class="container">
-        <h2>Admin Settings</h2>
+        <h2>Admin Dashboard</h2>
         
         <label>UPI ID:</label>
-        <input type="text" id="upId" placeholder="Enter UPI ID">
+        <input type="text" id="upId" placeholder="Enter UPI ID (e.g. mobile@paytm)">
 
-        <label>Support Phone:</label>
+        <label>Support Phone Number:</label>
         <input type="text" id="supportPhone" placeholder="Enter Phone Number">
 
-        <label>QR Link:</label>
-        <input type="text" id="qrlink" placeholder="Enter QR Image Link">
+        <label>QR Code Image Link:</label>
+        <input type="text" id="qrlink" placeholder="Paste QR Image URL">
 
         <hr>
         <h3>Product Details</h3>
@@ -69,10 +73,13 @@
         <label>Product Name:</label>
         <input type="text" id="productName" placeholder="Enter Product Name">
 
-        <label>Product Image Link:</label>
-        <input type="text" id="productImage" placeholder="Enter Image Link">
+        <label>Product Price (₹):</label>
+        <input type="text" id="productPrice" placeholder="Enter Price">
 
-        <button onclick="saveData()">Save Data</button>
+        <label>Product Image Link:</label>
+        <input type="text" id="productImage" placeholder="Paste Product Image URL">
+
+        <button onclick="saveData()">Save All Changes</button>
     </div>
 </body>
 </html>
